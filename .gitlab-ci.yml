@@ -1,0 +1,14 @@
+image:
+  maven:3.6.3
+
+stages:
+  - build
+  - test
+  - package
+  - deploy
+
+build_job:
+  stage: build
+  script:
+    - echo "Start maven compile"
+    - mvn compile

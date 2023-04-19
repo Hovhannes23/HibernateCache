@@ -37,7 +37,6 @@ public class HibernateCacheApplication {
         session.close();
 
 
-
         // get city in session1
         Session session1 = factory.openSession();
         Transaction transaction = session1.beginTransaction();
@@ -62,21 +61,21 @@ public class HibernateCacheApplication {
         // query cache
         Session session3 = factory.openSession();
         Query query = session3.createQuery("FROM City c WHERE c.population > :population");
-        query.setParameter("population", new Long(1_400_000));
+        query.setParameter("population", 1_400_000L);
         query.setCacheable(true);
         System.out.println(query.list());
 
         // в той же сессии создаем запрос с тем же синтаксисом и значением параметра.
         // Ожидаемый результат: данные из кэша
         Query query2 = session3.createQuery("FROM City c WHERE c.population > :population");
-        query2.setParameter("population", new Long(1_400_000));
+        query2.setParameter("population", 1_400_000L);
         query2.setCacheable(true);
         System.out.println(query2.list());
 
         // в той же сессии создаем запрос с тем же синтаксисом и меняем значение параметра.
         // Ожидаемый результат: данные из БД
         Query query3 = session3.createQuery("FROM City c WHERE c.population > :population");
-        query3.setParameter("population", new Long(1_444_444));
+        query3.setParameter("population", 1_444_000L);
         query3.setCacheable(true);
         System.out.println(query3.list());
 
@@ -84,7 +83,7 @@ public class HibernateCacheApplication {
         // Ожидаемый результат: данные из кэша
         Session session4 = factory.openSession();
         Query query1 = session4.createQuery("FROM City c WHERE c.population > :population");
-        query1.setParameter("population", new Long(1_400_000));
+        query1.setParameter("population", 1_400_000L);
         query1.setCacheable(true);
         System.out.println(query1.list());
 
